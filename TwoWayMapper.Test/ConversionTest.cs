@@ -1,4 +1,10 @@
-﻿using System.Linq;
+﻿using System.IO.Compression;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Http.Headers;
+
+using FluentAssertions;
+
 using Ploeh.AutoFixture;
 using TwoWayMapper.Conversion;
 using Xunit;
@@ -158,12 +164,38 @@ namespace TwoWayMapper.Test
                 Assert.NotEmpty(err.ErrorMessage);
                 Assert.Equal("Err", err.SourceValue);
 
-                var err2= ex.Errors[1];
+                var err2 = ex.Errors[1];
                 Assert.Equal("Nest[3].Val[2].String", err2.SourcePath);
                 Assert.Equal("Inner[3].Val[2].Num", err2.DestinationPath);
                 Assert.NotEmpty(err2.ErrorMessage);
                 Assert.Equal("incorrect", err2.SourceValue);
             }
+        }
+
+        [Fact]
+        public void Map_WhenInvoked_ShouldConvertArrayElements()
+        {
+            // Arrange
+            var mapper = new Mapper<ArrayOfInts, ArrayOfStrings>()
+                .Map((e, i) => e.Values[i], (e, i) => e.Values[i]);
+
+            var src = new ArrayOfStrings
+            {
+                Values = new[]
+                {
+                    "3",
+                    "2",
+                    "1"
+                }
+            };
+
+            // Act
+            var dst = mapper.Map(src);
+
+            // Assert
+            dst.Values.Should().NotBeNull();
+            dst.Values.Length.Should().Be(src.Values.Length);
+            dst.Values.Should().BeEquivalentTo(new[] { 3, 2, 1 });
         }
 
 
@@ -241,6 +273,16 @@ namespace TwoWayMapper.Test
         public class NestArr2<T>
         {
             public Arr<T>[] Inner { get; set; }
+        }
+
+        public class ArrayOfInts
+        {
+            public int[] Values { get; set; }
+        }
+
+        public class ArrayOfStrings
+        {
+            public string[] Values { get; set; }
         }
     }
 }

@@ -24,6 +24,8 @@ namespace TwoWayMapper.Engine.MappingTreeBuilding.Nodes
 
             context.IndexerParameters.Push(index);
 
+            var srcElementType = ExpressionHelper.GetMemberTypeOrCollectionElementType(srcIndexer);
+
             var block =
                 Expression.IfThen(
                     nullCheckCondition,
@@ -36,7 +38,9 @@ namespace TwoWayMapper.Engine.MappingTreeBuilding.Nodes
                             Expression.IfThenElse(
                                 Expression.LessThan(index, ExpressionHelper.GetLengthExpressionFromIndexer(context.Rewrite(Indexer))),
                                 Expression.IfThen(
-                                    Expression.NotEqual(context.Rewrite(srcIndexer), Expression.Constant(null)),
+                                    srcElementType.IsValueType 
+                                        ? (Expression)Expression.Constant(true) 
+                                        : Expression.NotEqual(context.Rewrite(srcIndexer), Expression.Constant(null)),
                                     Expression.Block(
                                         Expression.Assign(
                                             Expression.ArrayAccess(context.Rewrite(Member), index),

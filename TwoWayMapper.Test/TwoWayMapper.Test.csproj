@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConversionTest.cs" />
+    <Compile Include="ExampleTest.cs" />
     <Compile Include="ExpressionHelperTest.cs" />
     <Compile Include="ExpressionPathStringHelperTest.cs" />
     <Compile Include="GenericConversionTest.cs" />
