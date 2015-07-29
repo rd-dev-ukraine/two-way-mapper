@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1FCAB56-17AE-4D81-AEBC-2A4E945B679E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TwoWayMapper</RootNamespace>
+    <AssemblyName>TwoWayMapper</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\MapperMember.cs" />
+    <Compile Include="Configuration\MapperMemberConfiguration.cs" />
+    <Compile Include="ConversionError.cs" />
+    <Compile Include="ConversionException.cs" />
+    <Compile Include="Conversion\ConversionResult.cs" />
+    <Compile Include="Conversion\ConverterCollection.cs" />
+    <Compile Include="Conversion\Converters\TryParseConverter.cs" />
+    <Compile Include="Conversion\IConverter.cs" />
+    <Compile Include="Engine\ExpressionEx.cs" />
+    <Compile Include="Engine\ExpressionHelper.cs" />
+    <Compile Include="Engine\ExpressionPair.cs" />
+    <Compile Include="Engine\ExpressionParsing\ExpressionParser.cs" />
+    <Compile Include="Engine\ExpressionParsing\PathPart.cs" />
+    <Compile Include="Engine\ExpressionPathStringHelper.cs" />
+    <Compile Include="Engine\MappingBuilderContext.cs" />
+    <Compile Include="Engine\MappingContext.cs" />
+    <Compile Include="Engine\MappingEngine.cs" />
+    <Compile Include="Engine\MappingEngineMemberMappingInfo.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\ExpressionTreeBuilder.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\Nodes\ArrayIndexerNode.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\Nodes\AssigningNode.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\Nodes\CollectionIndexerNode.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\Nodes\MappingBuilderNode.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\Nodes\MemberAccessNode.cs" />
+    <Compile Include="Engine\MappingTreeBuilding\Nodes\RootNode.cs" />
+    <Compile Include="IMapper.cs" />
+    <Compile Include="Mapper.cs" />
+    <Compile Include="MappingExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
